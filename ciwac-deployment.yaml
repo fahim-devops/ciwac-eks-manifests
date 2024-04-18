@@ -18,7 +18,7 @@ spec:
         app: ciwac-frontend
     spec:
       containers:
-        - image: ledgerapp/ciwac_frontend:latest
+        - image: ledger/ciwac_frontend:latest
           imagePullPolicy: Always
           resources:
             limits:

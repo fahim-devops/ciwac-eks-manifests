@@ -18,7 +18,7 @@ spec:
         app: niwac-backend
     spec:
       containers:
-        - image: ledgerapp/niwac-backend:latest
+        - image: ledger/niwac-backend:latest
           imagePullPolicy: Always
           name: niwac-backend
           ports:
