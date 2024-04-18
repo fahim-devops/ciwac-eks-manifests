@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: ciwac-frontend
+    app.kubernetes.io/instance: ciwac-frontend-instance
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/managed-by: kubectl
+  name: ciwac-frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: ciwac-frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080

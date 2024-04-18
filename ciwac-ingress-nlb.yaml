@@ -1,0 +1,93 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ciwac-nlb-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "CF-IPCountry: $http_cf_ipcountry";
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "10"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+spec:
+  ingressClassName: "nginx"
+  rules:
+
+  - host: "www.ciwac.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: ciwac-frontend
+            port:
+              number: 80
+
+  - host: "ciwac.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: ciwac-frontend
+            port:
+              number: 80
+
+
+  - host: "tamour.ciwac.com"
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: ciwac-frontend
+            port: 
+              number: 80
+
+
+  - host: "grafana-board.ciwac.com"
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port: 
+              number: 80
+
+  - host: "prometheus-board.ciwac.com"
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-server
+            port: 
+              number: 80
+
+
+  - host: "api.ciwac.com"
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: ciwac-backend
+            port: 
+              number: 80
+  - host: tempapi.ciwac.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ciwac-backend
+            port: 
+              number: 80
